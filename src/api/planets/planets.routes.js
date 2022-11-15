@@ -15,24 +15,24 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// router.get("/:id", [isAuth], async (req, res, next) => {
-//   try {
-//     const id = req.params.id;
-//     const aToFind = await Planet.findById(id);
-//     return res.status(200).json(aToFind);
-//   } catch (error) {
-//     return next(error);
-//   }
-// });
-// router.get('/getbyname/:name', async (req, res, next) => {
-//   try {
-//     const name = req.params.name;
-//     const architectureToFind = await Planet.findOne({name: name});
-//     return res.status(200).json(architectureToFind);
-//   } catch (error) {
-//     return next(error);
-//   }
-// });
+router.get("/:id", [isAuth], async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const planetToFind = await Planet.findById(id);
+    return res.status(200).json(planetToFind);
+  } catch (error) {
+    return next(error);
+  }
+});
+router.get('/getbyname/:name', async (req, res, next) => {
+  try {
+    const name = req.params.name;
+    const architectureToFind = await Planet.findOne({name: name});
+    return res.status(200).json(architectureToFind);
+  } catch (error) {
+    return next(error);
+  }
+});
 
 router.post("/create", upload.single("img"), async (req, res) => {
   try {
