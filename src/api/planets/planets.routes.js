@@ -34,11 +34,11 @@ router.get('/getbyname/:name', async (req, res, next) => {
   }
 });
 
-router.post("/create", upload.single("img"), async (req, res) => {
+router.post("/create", upload.single("image"), async (req, res) => {
   try {
     const planet = req.body;
     if (req.file) {
-      planet.img = req.file.path;
+      planet.image = req.file.path;
     }
     const newPlanet = new Planet(planet);
     const planetCreated = await newPlanet.save();
@@ -50,16 +50,16 @@ router.post("/create", upload.single("img"), async (req, res) => {
   }
 });
 
-router.put("/edit/:id", upload.single("img"), async (req, res, next) => {
+router.put("/edit/:id", upload.single("image"), async (req, res, next) => {
   try {
     const id = req.params.id;
     const planet = req.body;
     const planetToEdit = await Planet.findById(id);
     if (req.file) {
-      if (planetToEdit.img) {
-        deleteFile(planetToEdit.img);
+      if (planetToEdit.image) {
+        deleteFile(planetToEdit.image);
       }
-      planet.img = req.file.path;
+      planet.image = req.file.path;
     }
     const planetModification = new Planet(planet);
     planetModification._id = id;
